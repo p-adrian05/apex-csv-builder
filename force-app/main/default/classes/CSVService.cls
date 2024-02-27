@@ -51,7 +51,7 @@ public with sharing abstract class CSVService {
      * @param fileData The CSV data to add to the file.
      * @param title The name of the file.
      * @param encoding The encoding to use for the file.
-     * @return The Id of the shared document named ContentDocumentId
+     * @return The Id of the new file.
      */
     protected virtual Id createFile(String fileData, String title,String encoding) {
         Blob body = encodeFileData(fileData, encoding);
