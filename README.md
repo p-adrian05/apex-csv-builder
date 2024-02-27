@@ -50,7 +50,7 @@ public with sharing class ContactCSVService extends CSVService {
     public ContactCSVService(CSVFileService csvFileService) {
         super(csvFileService, HEADERS, FILE_NAME_FULL);
     }
-    public override Id createKHCSV(List<Id> invoiceRecordIds) {
+    public override Id createCSV(List<Id> invoiceRecordIds) {
         List<Contact> records = getContacts(invoiceRecordIds);
         return super.createKHCSV(records);
     }
@@ -63,7 +63,7 @@ public with sharing class ContactCSVService extends CSVService {
     }
 }
 ```
-Then you can use the createCSV method to generate CSV File from records and receive the ContentDocumentId.
+Then you can use the createCSV method to generate CSV File from records and receive the Content Document Id.
 
 ```java
 ContactCSVService service = new ContactCSVService(new CSVFileService());
