@@ -69,7 +69,7 @@ Then you can use the createCSV method to generate CSV File from records and rece
 ContactCSVService service = new ContactCSVService(new CSVFileService());
 Id fileId = service.createCSV(contactIdList);
 ```
-The Content Document Id can be used to 
+The Content Document Id can be use to 
 - download the file directly in Salesforce Lightning with the following URL path: /sfc/servlet.shepherd/document/download/'+documentId+'?operationContext=S1
 - Open the Record Page of the Document
 - Navigate the user in LWC with NavigationMixin
