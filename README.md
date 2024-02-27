@@ -63,8 +63,26 @@ public with sharing class ContactCSVService extends CSVService {
     }
 }
 ```
-Then you can use the createCSV method to generate CSV File from records.
+Then you can use the createCSV method to generate CSV File from records and receive the ContentDocumentId.
+
 ```java
 ContactCSVService service = new ContactCSVService(new CSVFileService());
 Id fileId = service.createCSV(contactIdList);
+```
+The Content Document Id can be used to 
+- download the file directly in Salesforce Lightning with the following URL path: /sfc/servlet.shepherd/document/download/'+documentId+'?operationContext=S1
+- Open the Record Page of the Document
+- Navigate the user in LWC with NavigationMixin
+```js
+  viewDocument(documentId){
+    this[NavigationMixin.GenerateUrl]({
+        type: "standard__recordPage",
+        attributes: {
+            recordId: documentId,
+            actionName: "view",
+        },
+    }).then(url => {
+        window.open(url, "_blank");
+    });
+}
 ```
