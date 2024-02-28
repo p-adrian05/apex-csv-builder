@@ -1,5 +1,8 @@
 
 public with sharing class FileService {
+
+    public static final String ISO_8859_2 = 'ISO-8859-2';
+    public static final String UTF_8 = 'UTF-8';
     /**
          * S—Document is located within Salesforce. Label is Salesforce.
         E—Document is located outside of Salesforce. Label is External.

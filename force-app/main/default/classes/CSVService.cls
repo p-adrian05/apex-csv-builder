@@ -14,12 +14,13 @@ public with sharing abstract class CSVService {
     protected final CSVFileService csvFileService;
     protected final List<CSVHeader> headers;
     protected final String fileName;
-    protected final String ENCODING = 'iso-8859-2';
+    protected final String encoding;
 
-    public CSVService(CSVFileService csvFileService, List<CSVHeader> headers, String fileName) {
+    public CSVService(CSVFileService csvFileService, List<CSVHeader> headers, String fileName,String encoding) {
         this.csvFileService = csvFileService;
         this.headers = headers;
         this.fileName = fileName;
+        this.encoding = encoding;
     }
     /**
      * The createKHCSV method serializes the records to a CSV string using the csvFileService and creates a new file with the CSV data.
@@ -29,7 +30,7 @@ public with sharing abstract class CSVService {
      */
     public virtual Id createCSV(List<SObject> records) {
         String csvString = csvFileService.serializeToCSV(headers, records);
-        return createFile(csvString, fileName,ENCODING);
+        return createFile(csvString, fileName,encoding);
     }
     /**
       * The createKHCSV method serializes the records to a CSV string using the csvFileService, creates a new file with the CSV data,

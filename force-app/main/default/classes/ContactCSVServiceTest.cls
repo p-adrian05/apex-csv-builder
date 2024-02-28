@@ -21,7 +21,7 @@ private class ContactCSVServiceTest {
 
         List<ContentVersion>  cdList = [SELECT VersionData FROM ContentVersion WHERE ContentDocumentId = :fileId];
         Assert.areEqual(1, cdList.size());
-        String csvContentString = FileService.decodeFileData(cdList[0].VersionData, 'ISO-8859-2');
+        String csvContentString = FileService.decodeFileData(cdList[0].VersionData, FileService.ISO_8859_2);
         System.debug(csvContentString);
         String expectedCsvContent = 'Account Name;First Name;Phone\n' +
                                     'Test Account;JOHN;122112211221';
