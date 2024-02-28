@@ -54,38 +54,7 @@ public with sharing abstract class CSVService {
      * @return The Id of the new file.
      */
     protected virtual Id createFile(String fileData, String title,String encoding) {
-        Blob body = encodeFileData(fileData, encoding);
-        ContentVersion cv = new ContentVersion();
-        cv.ContentLocation = 'S';
-        cv.Title = title;
-        cv.PathOnClient = title;
-        cv.VersionData = body;
-        insert cv;
-
-        ContentDistribution cd = new ContentDistribution();
-        cd.Name = cv.Title;
-        cd.ContentVersionId = cv.Id;
-        cd.PreferencesAllowOriginalDownload = true;
-        cd.PreferencesAllowPDFDownload = true;
-        cd.PreferencesAllowViewInBrowser = true;
-        insert cd;
-        List<ContentDistribution> cdList = [SELECT Id,ContentDocumentId FROM ContentDistribution WHERE Id =: cd.Id];
-        return cdList[0].ContentDocumentId;
+        Blob body = FileService.encodeFileData(fileData, encoding);
+        return FileService.createFile(body,title,FileService.FileLocation.S);
     }
-    private Blob encodeFileData(String fileData, String encoding) {
-        String urlEncoded = EncodingUtil.urlEncode(fileData, encoding);
-        String[] chars = urlEncoded.replaceAll('\\+',' ').split('');
-        for(Integer i = 0; i < chars.size(); i++) {
-            if(chars[i] == '%') {
-                chars[i] = EncodingUtil.convertToHex(EncodingUtil.convertFromHex(chars[i+1]+chars[i+2]));
-                chars.remove(i+2);
-                chars.remove(i+1);
-            } else {
-                chars[i] = EncodingUtil.convertToHex(Blob.valueOf(chars[i]));
-            }
-        }
-        return EncodingUtil.convertFromHex(String.join(chars,''));
-    }
-
-
 }
