@@ -13,8 +13,8 @@ public with sharing abstract class CSVService {
 
     protected final CSVFileService csvFileService;
     protected final List<CSVHeader> headers;
-    protected final String fileName;
-    protected final String encoding;
+    public final String fileName {get;private set;}
+    public final String encoding {get;private set;}
 
     public CSVService(CSVFileService csvFileService, List<CSVHeader> headers, String fileName,String encoding) {
         this.csvFileService = csvFileService;

@@ -16,12 +16,12 @@ private class ContactCSVServiceTest {
         contact.Phone = '122112211221';
         insert contact;
 
-        ContactCSVService service = new ContactCSVService(new CSVFileService());
-        Id fileId = service.createCSV(new List<Id>{contact.Id});
+        ContactCSVService contactCSVService = new ContactCSVService(new CSVFileService());
+        Id fileId = contactCSVService.createCSV(new List<Id>{contact.Id});
 
         List<ContentVersion>  cdList = [SELECT VersionData FROM ContentVersion WHERE ContentDocumentId = :fileId];
         Assert.areEqual(1, cdList.size());
-        String csvContentString = FileService.decodeFileData(cdList[0].VersionData, FileService.ISO_8859_2);
+        String csvContentString = FileService.decodeFileData(cdList[0].VersionData, contactCSVService.encoding);
         System.debug(csvContentString);
         String expectedCsvContent = 'Account Name;First Name;Phone\n' +
                                     'Test Account;JOHN;122112211221';
