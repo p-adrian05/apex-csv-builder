@@ -4,6 +4,7 @@
 
 # Salesforce cache
 .sf/
+.idea
 .sfdx/
 .localdevserver/
 deploy-options.json
