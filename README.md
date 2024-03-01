@@ -3,7 +3,8 @@ Introduction
 
 This Apex library provides a convenient way to generate CSV files in Salesforce. It includes several classes to handle different aspects of CSV generation, such as defining the headers, serializing records to CSV format, and creating a file in Salesforce.
 
-Defining headers with custom name, maximum length, type, and default value and more.
+## Defining Custom CSV Headers
+You can define custom CSV headers with various attributes such as name, maximum length, type, default value, etc. Here's an example:
 ```java
 public class ContactCSVHeaders {
     private ContactCSVHeaders() {
@@ -36,9 +37,10 @@ public class ContactCSVHeaders {
     }
 }
 ```
-Extend the provided abstract CSVService class using the CSVFileService implementation to define your object type specific implementation.
+## Implementing Object-specific CSV Service
+Extend the provided abstract __CSVService__ class using the __CSVFileService__ implementation to define your object-specific implementation.
 
-Here's an example:
+Here's an example for the Contact object:
 ```java
 public with sharing class ContactCSVService extends CSVService {
 
@@ -64,16 +66,18 @@ public with sharing class ContactCSVService extends CSVService {
     }
 }
 ```
-Then you can use the createCSV method to generate CSV File from records and receive the Content Document Id.
+## Generating CSV File from Records
+You can use the __createCSV__ method to generate a CSV file from records and receive the Content Document Id.
 
 ```java
 ContactCSVService service = new ContactCSVService(new CSVFileService());
 Id fileId = service.createCSV(contactIdList);
 ```
-The Content Document Id can be use to 
-- download the file directly in Salesforce Lightning with the following URL path: /sfc/servlet.shepherd/document/download/'+documentId+'?operationContext=S1
+The Content Document Id can be used to:
+- Download the file directly in Salesforce Lightning or in LWC with the following URL path: __/sfc/servlet.shepherd/document/download/'+documentId+'?operationContext=S1__
 - Open the Record Page of the Document
 - Navigate the user in LWC with NavigationMixin
+Here's an example of navigating to the document in LWC:
 ```js
   viewDocument(documentId){
     this[NavigationMixin.GenerateUrl]({
